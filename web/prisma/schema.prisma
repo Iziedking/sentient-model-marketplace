@@ -3,33 +3,26 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-
-  // NEXTAUTH relations
-  accounts Account[]
-  sessions Session[]
-
-  // MARKETPLACE: back-relations + counters
-  modelListings ModelListing[]
-  purchases     Purchase[]
-  usageCalls    UsageCall[]
-
-  // Credits & stats (in cents / counters)
-  creditsCents    Int @default(2500) // $25.00 for new signups
-  totalSpentCents Int @default(0)
-  totalCalls      Int @default(0)
-
-  // Leaderboard helper (optional)
-  totalPurchases Int @default(0)
+  id              String         @id @default(cuid())
+  name            String?
+  email           String?        @unique
+  emailVerified   DateTime?
+  image           String?
+  creditsCents    Int            @default(2500)
+  totalSpentCents Int            @default(0)
+  totalCalls      Int            @default(0)
+  totalPurchases  Int            @default(0)
+  accounts        Account[]
+  modelListings   ModelListing[]
+  purchases       Purchase[]
+  sessions        Session[]
+  usageCalls      UsageCall[]
 }
 
 model Account {
@@ -45,8 +38,7 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -56,8 +48,7 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -68,70 +59,49 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-
 model ModelListing {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // ownership
-  ownerId String
-  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-
-  // public info
-  name      String
-  slug      String  @unique
-  ownerName String?
-  category  String
-
-  // SQLite cannot store String[]; store CSV (or JSON string) instead
-  tagsCsv String @default("") 
-
-  pricePer1k Float // dollars per 1K tokens (or per-call)
-  latencyMs  Int
-  rating     Float  @default(4.0)
-  short      String
-
- 
-  storagePath String?
-  publicUrl   String?
-
-  // usage / monetization counters
-  totalPurchases Int @default(0)
-  totalCalls     Int @default(0)
-  revenueCents   Int @default(0)
-
-  purchases  Purchase[]
-  usageCalls UsageCall[]
+  id             String      @id @default(cuid())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  ownerId        String
+  name           String
+  slug           String      @unique
+  ownerName      String?
+  category       String
+  tagsCsv        String      @default("")
+  pricePer1k     Float
+  latencyMs      Int
+  rating         Float       @default(4.0)
+  short          String
+  storagePath    String?
+  publicUrl      String?
+  totalPurchases Int         @default(0)
+  totalCalls     Int         @default(0)
+  revenueCents   Int         @default(0)
+  owner          User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  purchases      Purchase[]
+  usageCalls     UsageCall[]
 }
 
 model Purchase {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-
-  userId String
-  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  modelId String
-  model   ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
-
+  id         String       @id @default(cuid())
+  createdAt  DateTime     @default(now())
+  userId     String
+  modelId    String
   priceCents Int
+  model      ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, modelId])
 }
 
-
 model UsageCall {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  modelId String
-  model   ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
-
-  // cost for this call
+  id        String       @id @default(cuid())
+  createdAt DateTime     @default(now())
+  userId    String
+  modelId   String
   tokens    Int
   costCents Int
+  model     ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
