@@ -1,26 +1,91 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand: #e25639;
+
+
+  --background: #0b0d10;
+  --foreground: #f3f4f6;
+
+  --panel: #111318;
+  --panel-2: #0e1014;
+  --muted: #141821;
+  --border: #1f2632;
+
+  --text-dim: #a9b1c0;
+  --chip: #0d1117;
+  --chip-border: #202938;
+
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+.dark {
+  --background: #0a0c0f;
+  --foreground: #e8eaee;
+
+  --panel: #0f1218;
+  --panel-2: #0b0e12;
+  --muted: #131722;
+  --border: #1a202c;
+
+  --text-dim: #a2aabb;
+  --chip: #0c1016;
+  --chip-border: #1c2432;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+.light .card {
+  --panel: #ffffff;
+  --panel-2: #f8fafc;
+  --foreground: #0b1320;
+  --text-dim: #475569;
+  --muted: #f1f5f9;
+  --border: #e5e7eb;
+  --chip: #f4f6f8;
+  --chip-border: #e2e8f0;
 }
+
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.chip {
+  background: var(--chip);
+  border: 1px solid var(--chip-border);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+
+input, textarea {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+
+a { color: var(--brand); text-underline-offset: 2px; }

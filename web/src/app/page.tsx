@@ -1,103 +1,123 @@
-import Image from "next/image";
+'use client';
+
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { data: session, status } = useSession();
+  const signedIn = status === 'authenticated' && !!session?.user;
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  return (
+    <main className="relative min-h-screen">
+     
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="pointer-events-none h-full w-full object-cover opacity-30"
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-6 py-6">
+        {/* HERO */}
+        <section className="mt-24 md:mt-32 text-center text-white">
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl md:text-7xl leading-[1.05]"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Open AGI
+            <br className="hidden md:block" />
+            <span className="block mt-2">Aligned to Humanity</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mx-auto mt-5 max-w-3xl text-neutral-200"
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            A simulation marketplace where builders list models and earn from usage.
+            Transparent, local-friendly access with flexible monetization.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="mt-10 flex justify-center gap-3"
+          >
+            <Link
+              href="/market"
+              className="rounded-xl px-5 py-3 bg-[var(--brand)] text-black font-medium hover:opacity-90 transition"
+            >
+              Enter Marketplace
+            </Link>
+
+            <Link
+              href="/how-it-works"
+              className="rounded-xl px-5 py-3 border border-white/20 hover:bg-white/10 transition"
+            >
+              How it works
+            </Link>
+          </motion.div>
+        </section>
+
+        {/* Quick links */}
+        <section className="mx-auto mt-28 max-w-5xl grid gap-6 md:grid-cols-3">
+          
+          {signedIn ? (
+            <Link
+              href="/profile"
+              className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
+            >
+              <h3 className="mb-2 font-semibold text-white">My profile</h3>
+              <p className="text-sm text-neutral-200">
+                View credits, owned models, and recent usage.
+              </p>
+            </Link>
+          ) : (
+            <Link
+              href="/auth/signin"
+              className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
+            >
+              <h3 className="mb-2 font-semibold text-white">Sign in</h3>
+              <p className="text-sm text-neutral-200">
+                Use Google or email magic link. No wallet needed for testing.
+              </p>
+            </Link>
+          )}
+
+          {/* Card 2 */}
+          <Link
+            href="/market"
+            className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
+          >
+            <h3 className="mb-2 font-semibold text-white">Browse models</h3>
+            <p className="text-sm text-neutral-200">
+              Discover community models with transparent terms.
+            </p>
+          </Link>
+
+          {/* Card 3 */}
+          <Link
+            href="/simulate"
+            className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
+          >
+            <h3 className="mb-2 font-semibold text-white">Simulate monetization</h3>
+            <p className="text-sm text-neutral-200">
+              Track calls, see revenue splits, control permissions.
+            </p>
+          </Link>
+        </section>
+      </div>
+    </main>
   );
 }
