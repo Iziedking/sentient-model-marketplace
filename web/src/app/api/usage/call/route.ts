@@ -4,6 +4,8 @@ import { MODELS } from "@/data/models";
 import { auth } from "@/lib/auth";
 import type { Prisma } from "@prisma/client";
 
+export const runtime = 'nodejs';
+
 type EnsureArgs = { modelId?: string; slug?: string; ownerId: string };
 async function ensureModel(
   tx: Prisma.TransactionClient,

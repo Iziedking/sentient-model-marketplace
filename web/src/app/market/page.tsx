@@ -3,6 +3,7 @@ import MarketClient from "./MarketClient";
 import { MODELS } from "@/data/models";
 
 export const dynamic = "force-dynamic";
+export const runtime = 'nodejs';
 
 export default async function Market() {
 

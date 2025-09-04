@@ -41,6 +41,7 @@ function fromSeed(slug: string): ModelRow | null {
 }
 
 export const dynamic = "force-dynamic";
+export const runtime = 'nodejs';
 
 export default async function ModelDetail({
   params,

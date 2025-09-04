@@ -4,6 +4,8 @@ import { MODELS } from "@/data/models";
 import { auth } from "@/lib/auth";
 import type { Prisma } from "@prisma/client";
 
+export const runtime = 'nodejs';
+
 const UNLOCK_PRICE_CENTS = 0;
 
 type EnsureArgs = { modelId?: string; slug?: string; ownerId: string };
