@@ -1,15 +1,23 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 export const runtime = 'nodejs';
-
 export async function POST(req: Request) {
   const session = await auth();
-  if (!session?.user?.email) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!session?.user?.email) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
 
-  const { modelId, stars } = await req.json();
-  const user = await prisma.user.findUnique({ where: { email: session.user.email } });
+  const { modelId, stars } = await req.json().catch(() => ({}));
+  if (!modelId || typeof stars !== "number" || stars < 1 || stars > 5) {
+    return NextResponse.json({ error: "bad-request" }, { status: 400 });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+    select: { id: true },
+  });
   if (!user) return NextResponse.json({ error: "no-user" }, { status: 400 });
 
   await prisma.rating.upsert({
@@ -18,15 +26,5 @@ export async function POST(req: Request) {
     update: { stars },
   });
 
-  const agg = await prisma.rating.aggregate({
-    where: { modelId },
-    _avg: { stars: true },
-  });
-
-  await prisma.modelListing.update({
-    where: { id: modelId },
-    data: { avgRating: agg._avg.stars ?? 0 },
-  });
-
-  return NextResponse.json({ ok: true, avg: agg._avg.stars ?? 0 });
+  return NextResponse.json({ ok: true });
 }

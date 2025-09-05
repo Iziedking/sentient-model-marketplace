@@ -9,20 +9,29 @@ datasource db {
 }
 
 model User {
-  id              String         @id @default(cuid())
-  name            String?
-  email           String?        @unique
-  emailVerified   DateTime?
-  image           String?
-  creditsCents    Int            @default(2500)
-  totalSpentCents Int            @default(0)
-  totalCalls      Int            @default(0)
-  totalPurchases  Int            @default(0)
-  accounts        Account[]
-  modelListings   ModelListing[]
-  purchases       Purchase[]
-  sessions        Session[]
-  usageCalls      UsageCall[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+
+  // credits & stats
+  creditsCents    Int @default(2500)
+  totalSpentCents Int @default(0)
+  totalCalls      Int @default(0)
+  totalPurchases  Int @default(0)
+
+  // auth
+  accounts Account[]
+  sessions Session[]
+
+  // marketplace
+  modelListings ModelListing[]
+  purchases     Purchase[]
+  usageCalls    UsageCall[]
+
+  // NEW: back-relation for ratings
+  ratings Rating[]
 }
 
 model Account {
@@ -38,7 +47,8 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -48,7 +58,8 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -60,48 +71,79 @@ model VerificationToken {
 }
 
 model ModelListing {
-  id             String      @id @default(cuid())
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
-  ownerId        String
-  name           String
-  slug           String      @unique
-  ownerName      String?
-  category       String
-  tagsCsv        String      @default("")
-  pricePer1k     Float
-  latencyMs      Int
-  rating         Float       @default(4.0)
-  short          String
-  storagePath    String?
-  publicUrl      String?
-  totalPurchases Int         @default(0)
-  totalCalls     Int         @default(0)
-  revenueCents   Int         @default(0)
-  owner          User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  purchases      Purchase[]
-  usageCalls     UsageCall[]
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  name       String
+  slug       String  @unique
+  ownerName  String?
+  category   String
+  tagsCsv    String  @default("")
+  pricePer1k Float
+  latencyMs  Int
+  rating     Float   @default(4.0)
+  short      String
+
+  storagePath String?
+  publicUrl   String?
+
+  totalPurchases Int @default(0)
+  totalCalls     Int @default(0)
+  revenueCents   Int @default(0)
+
+  purchases  Purchase[]
+  usageCalls UsageCall[]
+
+  // NEW: back-relation for ratings
+  ratings Rating[]
 }
 
 model Purchase {
-  id         String       @id @default(cuid())
-  createdAt  DateTime     @default(now())
-  userId     String
-  modelId    String
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  modelId String
+  model   ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
+
   priceCents Int
-  model      ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
-  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, modelId])
 }
 
 model UsageCall {
-  id        String       @id @default(cuid())
-  createdAt DateTime     @default(now())
-  userId    String
-  modelId   String
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  modelId String
+  model   ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
+
   tokens    Int
   costCents Int
-  model     ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
-  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Rating {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  modelId String
+  model   ModelListing @relation(fields: [modelId], references: [id], onDelete: Cascade)
+
+  stars Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, modelId], name: "userId_modelId")
 }
