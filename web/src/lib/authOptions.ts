@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
  
   callbacks: {
     async session({ session, token }) {
-      // token.sub is user id when strategy=jwt
+     
       if (token?.sub && session.user) {
         const u = await prisma.user.findUnique({
           where: { id: token.sub },
