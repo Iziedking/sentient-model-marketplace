@@ -6,6 +6,5 @@ export const config = {
     "/profile/:path*",
     "/models/:path*/use",
     "/submit",
-
   ],
 };
