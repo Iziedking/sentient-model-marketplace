@@ -61,7 +61,7 @@ const SECTIONS = [
     points: [
       "Each model page lets you Buy / Unlock (free in this sim) and Use (1,000 tokens).",
       "“Use” creates a simulated usage record and deducts credits based on price per 1K tokens.",
-      "You’ll see modern toasts confirming success or explaining problems (e.g. insufficient credits).",
+      "You’ll see alerts confirming success or explaining problems.",
     ],
   },
   {
