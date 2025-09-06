@@ -88,7 +88,7 @@ export default function MarketClient({ initial }: Props) {
     else if (sort === "rating") items.sort((a, b) => b.rating - a.rating);
     else if (sort === "new") items.sort((a, b) => (a.id < b.id ? 1 : -1));
     else {
-      // trending (simple composite)
+      // trending
       const score = (x: ModelCardData) => x.rating * 10 + x.totalPurchases * 2 + x.totalCalls;
       items.sort((a, b) => score(b) - score(a));
     }

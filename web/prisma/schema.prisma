@@ -30,7 +30,7 @@ model User {
   purchases     Purchase[]
   usageCalls    UsageCall[]
 
-  // NEW: back-relation for ratings
+
   ratings Rating[]
 }
 
@@ -98,7 +98,7 @@ model ModelListing {
   purchases  Purchase[]
   usageCalls UsageCall[]
 
-  // NEW: back-relation for ratings
+
   ratings Rating[]
 }
 

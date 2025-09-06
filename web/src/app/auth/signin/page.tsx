@@ -8,7 +8,7 @@ export default function SignIn() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState<null | string>(null);
 
-  // very light email validation for button state
+
   const isValid = useMemo(
     () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
     [email]
