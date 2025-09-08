@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       
-      if (token.sub) {
+      /* if (token.sub) {
         try {
           const u = await prisma.user.findUnique({
             where: { id: token.sub },
@@ -51,7 +51,7 @@ export const authOptions: NextAuthOptions = {
         
           console.error("JWT callback prisma error", err);
         }
-      }
+      } */
       return token;
     },
 
