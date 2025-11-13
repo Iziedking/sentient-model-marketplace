@@ -33,9 +33,9 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-5xl md:text-7xl leading-[1.05]"
           >
-            Open AGI
+            Open-Source AGI
             <br className="hidden md:block" />
-            <span className="block mt-2">Aligned to Humanity</span>
+            <span className="block mt-2">For Everyone</span>
           </motion.h1>
 
           <motion.p
@@ -44,8 +44,8 @@ export default function Home() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="mx-auto mt-5 max-w-3xl text-neutral-200"
           >
-            A simulation marketplace where builders list models and earn from usage.
-            Transparent, local-friendly access with flexible monetization.
+            A transparent, decentralized marketplace where AGI pioneers list open-source models
+            and earn sustainable revenue. Building the future of accessible artificial general intelligence.
           </motion.p>
 
           <motion.div
@@ -58,14 +58,14 @@ export default function Home() {
               href="/market"
               className="rounded-xl px-5 py-3 bg-[var(--brand)] text-black font-medium hover:opacity-90 transition"
             >
-              Enter Marketplace
+              Explore Models
             </Link>
 
             <Link
               href="/how-it-works"
               className="rounded-xl px-5 py-3 border border-white/20 hover:bg-white/10 transition"
             >
-              How it works
+              Learn More
             </Link>
           </motion.div>
         </section>
@@ -78,9 +78,9 @@ export default function Home() {
               href="/profile"
               className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
             >
-              <h3 className="mb-2 font-semibold text-white">My profile</h3>
+              <h3 className="mb-2 font-semibold text-white">My Dashboard</h3>
               <p className="text-sm text-neutral-200">
-                View credits, owned models, and recent usage.
+                Track your credits, owned models, and usage analytics.
               </p>
             </Link>
           ) : (
@@ -88,9 +88,9 @@ export default function Home() {
               href="/auth/signin"
               className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
             >
-              <h3 className="mb-2 font-semibold text-white">Sign in</h3>
+              <h3 className="mb-2 font-semibold text-white">Get Started</h3>
               <p className="text-sm text-neutral-200">
-                Use Google or email magic link. No wallet needed for testing.
+                Start with $25 demo credits. No wallet or signup fees required.
               </p>
             </Link>
           )}
@@ -100,9 +100,9 @@ export default function Home() {
             href="/market"
             className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
           >
-            <h3 className="mb-2 font-semibold text-white">Browse models</h3>
+            <h3 className="mb-2 font-semibold text-white">Discover AGI Models</h3>
             <p className="text-sm text-neutral-200">
-              Discover community models with transparent terms.
+              Browse open-source models with transparent pricing and performance metrics.
             </p>
           </Link>
 
@@ -111,9 +111,9 @@ export default function Home() {
             href="/simulate"
             className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:border-white/20 hover:bg-white/10 transition"
           >
-            <h3 className="mb-2 font-semibold text-white">Simulate monetization</h3>
+            <h3 className="mb-2 font-semibold text-white">Revenue Simulator</h3>
             <p className="text-sm text-neutral-200">
-              Track calls, see revenue splits, control permissions.
+              Model your pricing strategy and estimate sustainable earnings.
             </p>
           </Link>
         </section>

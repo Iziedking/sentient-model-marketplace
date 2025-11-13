@@ -38,8 +38,11 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black">
-      <div className="w-[420px] rounded-2xl border border-white/10 bg-white/5 p-6 text-white backdrop-blur">
-        <h2 className="mb-4 text-xl font-semibold">Sign in</h2>
+      <div className="w-[460px] rounded-2xl border border-white/10 bg-white/5 p-6 text-white backdrop-blur">
+        <h2 className="mb-2 text-2xl font-semibold">Welcome to Open AGI</h2>
+        <p className="mb-6 text-sm text-white/70">
+          Join the movement for transparent, decentralized AGI. Start with $25 demo credits—no wallet required.
+        </p>
 
         <button
           onClick={() =>
@@ -47,13 +50,13 @@ export default function SignIn() {
           }
           className="w-full flex items-center justify-center gap-3 rounded-xl px-4 py-3 bg-[var(--brand)]"
         >
-         
+
           <span>Continue with Google</span>
         </button>
 
         <div className="my-4 h-px bg-white/10" />
 
-        <label className="block text-sm mb-2">Email address</label>
+        <label className="block text-sm mb-2">Or sign in with email</label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -68,10 +71,14 @@ export default function SignIn() {
           className={`mt-3 w-full rounded-xl px-4 py-3 border border-white/10
             ${isValid ? "bg-[var(--brand)]" : "bg-white/10 cursor-not-allowed"}`}
         >
-          {sending ? "Sending..." : "Send verification link"}
+          {sending ? "Sending..." : "Send magic link"}
         </button>
 
         {sent && <p className="mt-3 text-sm text-neutral-200">{sent}</p>}
+
+        <p className="mt-6 text-xs text-white/50 text-center">
+          By signing in, you agree to support open-source AGI development and transparent, community-governed AI systems.
+        </p>
       </div>
     </div>
   );
