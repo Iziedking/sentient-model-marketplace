@@ -14,10 +14,10 @@ export default function Simulate() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-10 text-white">
       <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-semibold">Simulate Monetization</h1>
+        <h1 className="text-3xl md:text-4xl font-semibold">Revenue Simulator</h1>
         <p className="mt-2 max-w-3xl text-white/75">
-          Explore how credits, purchases, and usage calls flow through the marketplace. This is a
-          simplified sandbox.
+          Model your pricing strategy for open-source AGI models. Understand how token-based pricing,
+          usage patterns, and sustainable monetization work in a transparent marketplace.
         </p>
       </header>
 
@@ -100,8 +100,8 @@ export default function Simulate() {
             </div>
 
             <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3 text-sm text-white/75">
-              Tip: This mirrors the real flow every call increments model usage and decrements user
-              credits based on the model’s price per 1K tokens.
+              💡 Tip: This demonstrates transparent pricing where every API call is billed fairly based on
+              tokens consumed—no hidden fees, no opaque algorithms. Fair monetization for open AGI.
             </div>
           </div>
         </motion.section>
@@ -138,23 +138,23 @@ function Row({ label, value }: { label: string; value: string }) {
 
 const SIM_SECTIONS = [
   {
-    title: "Credits",
+    title: "Transparent Pricing",
     body:
-      "Every user starts with free credits. Using models deducts from credits; unlocks may also cost credits (in this sim unlocks are free).",
+      "All models use clear, token-based pricing. No hidden costs or surprise bills—just fair, predictable economics that sustain open-source development.",
   },
   {
-    title: "Purchases",
+    title: "Model Access",
     body:
-      "Unlock models with credits. They’ll show up in your profile under “Owned models”.",
+      "Unlock models with one-time access (free in demo mode). All unlocked models appear in your dashboard with full usage analytics and transparency.",
   },
   {
-    title: "Usage",
+    title: "Fair Revenue Sharing",
     body:
-      "Calls simulate cost-per-1K tokens. Your credits go down, while the model’s revenue and usage stats increase.",
+      "Every API call generates revenue for model builders based on transparent pricing. Your credits decrease, their earnings increase—simple and accountable.",
   },
   {
-    title: "Builders (coming soon)",
+    title: "For AGI Builders",
     body:
-      "Upload your own models to test monetization and visibility in the market.",
+      "Upload your open-source models, set fair pricing, and earn sustainable revenue. Building the future of decentralized AGI development together.",
   },
 ] as const;

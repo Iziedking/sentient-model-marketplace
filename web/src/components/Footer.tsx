@@ -25,14 +25,34 @@ export default function Footer() {
           text-sm text-neutral-400 md:flex-row md:justify-between
         "
       >
-       
+
         <div className="order-2 md:order-1 text-center md:text-left">
-          © {new Date().getFullYear()} <span className="text-neutral-300">sentient.market</span>
-          <span className="opacity-60"> (sim)</span>
+          © {new Date().getFullYear()} <span className="text-neutral-300">Open AGI Marketplace</span>
+          <span className="opacity-60"> • Aligned with </span>
+          <a
+            href="https://sentient.foundation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-300 hover:text-white transition"
+          >
+            Sentient Foundation
+          </a>
         </div>
 
-       
+
         <div className="order-3 md:order-2 flex items-center gap-3">
+          <a
+            href="https://sentient.foundation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              inline-flex items-center gap-2 rounded-full border border-white/10
+              bg-white/5 px-3 py-1.5 text-neutral-300 hover:text-white
+              hover:border-white/20 hover:bg-white/10 transition text-[13px]
+            "
+          >
+            Learn about Open AGI
+          </a>
           <a
             href="https://x.com/Iziedking"
             target="_blank"
@@ -45,7 +65,7 @@ export default function Footer() {
             "
           >
             <XIcon />
-            <span className="text-[13px] hidden sm:inline">Support on X</span>
+            <span className="text-[13px] hidden sm:inline">Follow Updates</span>
           </a>
         </div>
 
