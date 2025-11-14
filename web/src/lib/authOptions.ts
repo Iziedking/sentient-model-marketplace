@@ -6,19 +6,31 @@ import { prisma } from "@/lib/prisma";
 
 const WELCOME_CREDITS_CENTS = 2500;
 
+// Build providers array conditionally based on available env vars
+const providers = [];
+
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  providers.push(
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: { params: { prompt: "select_account" } },
+    })
+  );
+}
+
+if (process.env.EMAIL_SERVER && process.env.EMAIL_FROM) {
+  providers.push(
+    EmailProvider({
+      server: process.env.EMAIL_SERVER,
+      from: process.env.EMAIL_FROM,
+    })
+  );
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      authorization: { params: { prompt: "select_account" } },
-    }),
-    EmailProvider({
-      server: process.env.EMAIL_SERVER!,
-      from: process.env.EMAIL_FROM!,
-    }),
-  ],
+  providers,
   pages: {
     signIn: "/auth/signin",
     verifyRequest: "/auth/signin?check=1",
